@@ -1,0 +1,101 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #a3b1c6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+    background-color: #4c1d95;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    color: white;
+    font-size: 1.8rem;
+    text-decoration: none;
+}
+
+/* Main Section Styles */
+.researcher-type-container {
+    flex: 1;
+    text-align: center;
+    padding: 2rem;
+}
+
+.researcher-type-container h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.researcher-type-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Individual Researcher Option Box */
+.researcher-option {
+    background-color: white;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    width: 350px;
+    padding: 1.5rem;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.researcher-option img {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+    float: left;
+}
+
+.researcher-option h2 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.researcher-option p {
+    font-size: 0.9rem;
+    color: #555;
+    clear: both;
+}
+
+.researcher-option:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #f8f8f8;
+    padding: 1rem;
+    text-align: center;
+}
+
+.footer-links a {
+    color: #333;
+    margin: 0 1rem;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}

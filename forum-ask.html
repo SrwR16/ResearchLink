@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a New Question - ResearchLink Forum</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+      }
+      .header {
+        background-color: #fdfdff;
+        color: white;
+        padding: 15px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .header-left,
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      .header-item {
+        color: #519ef5;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+      }
+      .header-item:hover {
+        color: #2d75d3;
+        text-shadow: #2d75d3;
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: #4a90e2;
+        text-decoration: none;
+      }
+      .main-content {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 30px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      }
+      .back-button {
+        color: #4a90e2;
+        margin-bottom: 20px;
+        cursor: pointer;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .back-button:hover {
+        color: #1a1a2e;
+      }
+      h1 {
+        color: #1a1a2e;
+        margin-bottom: 30px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: "Poppins", sans-serif;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      .submit-btn {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+      .submit-btn:hover {
+        background-color: #3a7bc8;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <a href="index.html" class="logo">ResearchLink</a>
+        <a href="jobs.html" class="header-item">📋 Jobs</a>
+        <a href="community.html" class="header-item">👥 Community</a>
+        <a href="question.html" class="header-item">❓ Question</a>
+      </div>
+      <div class="header-right">
+        <div class="header-item">🔔</div>
+        <div class="header-item">📁</div>
+        <div class="header-item">👤</div>
+      </div>
+    </header>
+    <main class="main-content">
+      <a href="forum-main.html" class="back-button">← Back to Forum</a>
+      <h1>Create a New Question</h1>
+      <form id="question-form">
+        <div class="form-group">
+          <label for="question-title">Question Title</label>
+          <input
+            type="text"
+            id="question-title"
+            name="question-title"
+            placeholder="Enter the title of your question"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="question-description">Question Description</label>
+          <textarea
+            id="question-description"
+            name="question-description"
+            placeholder="Provide more details about your question"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit Question</button>
+      </form>
+    </main>
+
+    <script>
+      document
+        .getElementById("question-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          // Here you would typically send the form data to your backend
+          console.log("Question submitted:", {
+            title: document.getElementById("question-title").value,
+            description: document.getElementById("question-description").value,
+          });
+          // Redirect back to the main forum page after submission
+          alert("Question submitted successfully!");
+          window.location.href = "index.html";
+        });
+    </script>
+  </body>
+</html>

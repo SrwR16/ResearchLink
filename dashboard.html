@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResearchLink Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #00f7ff;
+        --secondary-color: #ff00e6;
+        --bg-color: #0a0a2a;
+        --text-color: #ffffff;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --hover-color: rgba(0, 247, 255, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body,
+      html {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 247, 255, 0.1),
+          rgba(255, 0, 230, 0.1)
+        );
+        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-decoration: none;
+      }
+      #upload-btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 500;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border: 1px solid var(--primary-color);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      #upload-btn:hover {
+        transform: translateY(-3px);
+      }
+
+      #logout-btn {
+        display: inline-block;
+        padding: 0.7rem 1.3rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        background-color: transparent;
+        color: #ff4b5c; /* Red or an alert color */
+        border: 2px solid #ff4b5c; /* Red border */
+        transition: background-color 0.3s ease, color 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      #logout-btn:hover {
+        background-color: #ff4b5c; /* Button turns red */
+        color: white; /* Text turns white */
+        transform: translateY(-2px); /* Slight hover effect */
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 2rem;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .dashboard-container {
+        max-width: 1200px;
+        margin: 80px auto 0;
+        padding: 2rem;
+      }
+
+      .welcome-section {
+        text-align: center;
+        margin-bottom: 3rem; /* Space below the welcome section */
+      }
+
+      .welcome-section h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem; /* Space between the heading and the button */
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .welcome-section p {
+        margin-top: 1.5rem; /* Add margin above the paragraph for spacing */
+        margin-bottom: 0; /* Optional: Set this to 0 if you want no space below the paragraph */
+      }
+
+      #view-profile-btn {
+        display: inline-block;
+        padding: 0.5rem 1rem; /* Adjust button padding */
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border: 2px solid var(--primary-color);
+        transition: background-color 0.3s ease, color 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      #view-profile-btn:hover {
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.1
+        ); /* Light white with transparency */
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      .research-papers,
+      .additional-features {
+        margin-bottom: 3rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--secondary-color);
+      }
+
+      .paper-grid,
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .paper-card,
+      .feature-card {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        padding: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex; /* Flexbox to allow centering */
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Horizontally center the button and content */
+        text-align: center; /* Center text */
+      }
+
+      .paper-card:hover,
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 247, 255, 0.1);
+      }
+
+      .paper-card h3,
+      .feature-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: var(--bg-color);
+      }
+
+      .btn-secondary {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border: 1px solid var(--primary-color);
+        margin-top: 1rem; /* Adds spacing above the button */
+      }
+
+      .btn-primary:hover,
+      .btn-secondary:hover {
+        transform: translateY(-3px);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1001;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+      }
+
+      .modal-content {
+        background-color: var(--bg-color);
+        margin: 5% auto;
+        padding: 2rem;
+        border: 1px solid var(--primary-color);
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .close {
+        color: var(--text-color);
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        position: sticky;
+        top: 0;
+        background-color: var(--bg-color);
+        padding: 0.5rem;
+        z-index: 1;
+      }
+
+      .close:hover {
+        color: var(--primary-color);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="file"],
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid var(--card-bg);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--text-color);
+      }
+
+      .form-group input[type="file"] {
+        padding: 0.5rem;
+      }
+
+      #subtopics-container {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border: 1px solid var(--card-bg);
+        border-radius: 5px;
+      }
+
+      #subtopics-options label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      #paper-upload-form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #paper-upload-form .btn-primary {
+        align-self: flex-start;
+        margin-top: 1rem;
+      }
+
+      .footer {
+        background: linear-gradient(
+          45deg,
+          rgba(0, 247, 255, 0.05),
+          rgba(255, 0, 230, 0.05)
+        );
+        padding: 2rem 0;
+        margin-top: 3rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        margin-left: 1.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary-color);
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .nav-links {
+          margin-top: 1rem;
+        }
+
+        .nav-links li {
+          margin-left: 0;
+          margin-right: 1rem;
+        }
+
+        .dashboard-container {
+          padding: 1rem;
+        }
+
+        .paper-grid,
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-links {
+          margin-top: 1rem;
+        }
+
+        .footer-links a {
+          margin: 0 0.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="#" class="logo">ResearchLink</a>
+        <ul class="nav-links">
+          <li><a href="#" id="upload-btn">Upload Paper</a></li>
+          <li><a href="#" id="logout-btn">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="dashboard-container">
+      <section class="welcome-section">
+        <h1>Welcome, <span id="user-name">John Doe</span>!</h1>
+        <a href="#" id="view-profile-btn">View Profile</a>
+        <p>Explore cutting-edge research in your fields of interest.</p>
+      </section>
+
+      <section class="research-papers">
+        <h2>Matching Research Papers</h2>
+        <div class="paper-grid" id="paper-grid">
+          <!-- Paper cards will be dynamically added here -->
+        </div>
+      </section>
+
+      <section class="additional-features">
+        <h2>Explore More</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Collaboration Opportunities</h3>
+            <p>
+              Find researchers with similar interests and start collaborating on
+              exciting projects.
+            </p>
+            <a href="#" class="btn-secondary">Explore Collaborations</a>
+          </div>
+          <div class="feature-card">
+            <h3>Upcoming Conferences</h3>
+            <p>
+              Stay updated on the latest academic conferences in your field of
+              study.
+            </p>
+            <a href="#" class="btn-secondary">View Conferences</a>
+          </div>
+          <div class="feature-card">
+            <h3>Research Grants</h3>
+            <p>
+              Discover funding opportunities to support your research endeavors.
+            </p>
+            <a href="#" class="btn-secondary">Find Grants</a>
+          </div>
+          <div class="feature-card">
+            <h3>Academic Mentorship</h3>
+            <p>
+              Connect with experienced researchers for guidance and mentorship.
+            </p>
+            <a href="#" class="btn-secondary">Find a Mentor</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="upload-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Upload Your Research Paper</h2>
+        <form id="paper-upload-form">
+          <div class="form-group">
+            <label for="paper-title">Paper Title</label>
+            <input type="text" id="paper-title" name="paper-title" required />
+          </div>
+          <div class="form-group">
+            <label for="paper-topic">Paper Topic</label>
+            <select id="paper-topic" name="paper-topic" required>
+              <option value="" disabled selected>Choose a topic</option>
+              <option value="Physics">Physics</option>
+              <option value="Biotechnology">Biotechnology</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Social Science">Social Science</option>
+              <option value="AI & Robotics">AI & Robotics</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Biology">Biology</option>
+              <option value="Medicine">Medicine</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Chemistry">Chemistry</option>
+            </select>
+          </div>
+          <div
+            id="subtopics-container"
+            class="form-group"
+            style="display: none"
+          >
+            <label>Subtopics</label>
+            <div id="subtopics-options"></div>
+          </div>
+          <div class="form-group">
+            <label for="paper-author">Author</label>
+            <input
+              type="text"
+              id="paper-author"
+              name="paper-author"
+              value="John Doe"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label for="paper-description">Description</label>
+            <textarea
+              id="paper-description"
+              name="paper-description"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="paper-file">Upload PDF</label>
+            <input
+              type="file"
+              id="paper-file"
+              name="paper-file"
+              accept=".pdf"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-primary">Submit Paper</button>
+        </form>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2024 ResearchLink. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">About Us</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Sample data for demonstration purposes
+      const samplePapers = [
+        {
+          title: "Quantum Entanglement in Superconductors",
+          topic: "Physics",
+          author: "Dr. Alice Johnson",
+          description:
+            "An in-depth study of quantum entanglement phenomena in high-temperature superconductors.",
+        },
+        {
+          title: "Machine Learning Approaches in Bioinformatics",
+          topic: "Biotechnology",
+          author: "Prof. Robert Chen",
+          description:
+            "Exploring novel machine learning techniques for analyzing genomic data in bioinformatics.",
+        },
+        {
+          title: "Social Media Impact on Political Discourse",
+          topic: "Social Science",
+          author: "Dr. Emily Martinez",
+          description:
+            "A comprehensive analysis of how social media platforms influence modern political discussions.",
+        },
+        {
+          title: "Advancements in Robotic Surgery Techniques",
+          topic: "Medicine",
+          author: "Dr. Michael Wong",
+          description:
+            "Overview of recent innovations in robotic-assisted surgical procedures across various medical specialties.",
+        },
+      ];
+      // Function to create paper cards
+      function createPaperCard(paper) {
+        const card = document.createElement("div");
+        card.className = "paper-card";
+        card.innerHTML = `
+    <h3>${paper.title}</h3>
+    <p><strong>Topic:</strong> ${paper.topic}</p>
+    <p><strong>Author:</strong> ${paper.author}</p>
+    <p>${paper.description}</p>
+    <a href="${paper.pdfUrl}" target="_blank" class="btn-secondary">View Paper</a>
+  `;
+        return card;
+      }
+
+      // Populate the paper grid
+      const paperGrid = document.getElementById("paper-grid");
+      samplePapers.forEach((paper) => {
+        paperGrid.appendChild(createPaperCard(paper));
+      });
+
+      // Modal functionality
+      const modal = document.getElementById("upload-modal");
+      const btn = document.getElementById("upload-btn");
+      const span = document.getElementsByClassName("close")[0];
+
+      btn.onclick = function () {
+        modal.style.display = "block";
+      };
+
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      // Subtopics data
+      const subtopics = {
+        Physics: [
+          "Astrophysics",
+          "Quantum Mechanics",
+          "Thermodynamics",
+          "Particle Physics",
+          "Optics",
+        ],
+        Biotechnology: [
+          "Genetic Engineering",
+          "Bioinformatics",
+          "Bioprocess Engineering",
+          "Stem Cell Research",
+          "Synthetic Biology",
+        ],
+        Mathematics: [
+          "Algebra",
+          "Calculus",
+          "Statistics",
+          "Number Theory",
+          "Topology",
+        ],
+        "Social Science": [
+          "Psychology",
+          "Sociology",
+          "Anthropology",
+          "Economics",
+          "Political Science",
+        ],
+        "AI & Robotics": [
+          "Machine Learning",
+          "Natural Language Processing",
+          "Computer Vision",
+          "Robotics Control Systems",
+          "Human-Robot Interaction",
+        ],
+        Engineering: [
+          "Mechanical Engineering",
+          "Electrical Engineering",
+          "Civil Engineering",
+          "Aerospace Engineering",
+          "Chemical Engineering",
+        ],
+        Biology: [
+          "Molecular Biology",
+          "Ecology",
+          "Genetics",
+          "Microbiology",
+          "Evolutionary Biology",
+        ],
+        Medicine: [
+          "Cardiology",
+          "Neurology",
+          "Oncology",
+          "Immunology",
+          "Public Health",
+        ],
+        "Computer Science": [
+          "Algorithms",
+          "Data Structures",
+          "Database Systems",
+          "Cybersecurity",
+          "Software Engineering",
+        ],
+        Chemistry: [
+          "Organic Chemistry",
+          "Inorganic Chemistry",
+          "Physical Chemistry",
+          "Analytical Chemistry",
+          "Biochemistry",
+        ],
+      };
+
+      // Function to populate subtopics
+      function populateSubtopics(topic) {
+        const subtopicsContainer = document.getElementById(
+          "subtopics-container"
+        );
+        const subtopicsOptions = document.getElementById("subtopics-options");
+        subtopicsOptions.innerHTML = "";
+
+        if (subtopics[topic]) {
+          subtopics[topic].forEach((subtopic) => {
+            const label = document.createElement("label");
+            label.innerHTML = `
+                        <input type="checkbox" name="subtopics" value="${subtopic}">
+                        ${subtopic}
+                    `;
+            subtopicsOptions.appendChild(label);
+          });
+          subtopicsContainer.style.display = "block";
+        } else {
+          subtopicsContainer.style.display = "none";
+        }
+      }
+
+      // Event listener for topic selection
+      document
+        .getElementById("paper-topic")
+        .addEventListener("change", function () {
+          populateSubtopics(this.value);
+        });
+
+      // Form submission (for demonstration, just prevents default action)
+      document.getElementById("paper-upload-form").onsubmit = function (e) {
+        e.preventDefault();
+        alert("Paper submitted successfully!");
+        modal.style.display = "none";
+      };
+    </script>
+  </body>
+</html>

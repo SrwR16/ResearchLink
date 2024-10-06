@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In to ResearchLink - Explore the Future of Academia</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #00f7ff;
+        --secondary-color: #ff00e6;
+        --bg-color: #0a0a2a;
+        --text-color: #ffffff;
+        --card-bg: rgba(255, 255, 255, 0.05);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body,
+      html {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 5%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 247, 255, 0.1),
+          rgba(255, 0, 230, 0.1)
+        );
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style-type: none;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .signin-container {
+        display: flex;
+        min-height: 100vh;
+        padding-top: 80px;
+        padding-bottom: 40px;
+      }
+
+      .signin-form {
+        flex: 1;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 40px;
+        background: var(--card-bg);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 247, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      h1 {
+        font-size: 32px;
+        margin-bottom: 30px;
+        text-align: center;
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--primary-color);
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      input[type="email"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(0, 247, 255, 0.2);
+      }
+
+      .submit-btn {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: var(--bg-color);
+        border: none;
+        padding: 14px 28px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 18px;
+        width: 100%;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 20px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 14px rgba(0, 247, 255, 0.1),
+          0 3px 6px rgba(0, 247, 255, 0.1);
+      }
+
+      .forgot-password {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .forgot-password a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .forgot-password a:hover {
+        color: var(--secondary-color);
+      }
+
+      .signup-link {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .signup-link a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .signup-link a:hover {
+        color: var(--secondary-color);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px 0;
+        margin-top: 50px;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 247, 255, 0.05),
+          rgba(255, 0, 230, 0.05)
+        );
+      }
+
+      .footer-links a {
+        color: var(--text-color);
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary-color);
+      }
+
+      @media (max-width: 768px) {
+        .signin-form {
+          padding: 30px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">ResearchLink</div>
+        <ul class="nav-links">
+          <li><a href="index2.html">Home</a></li>
+          <li><a href="signup2.html">Sign Up</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="signin-container">
+      <form action="signin_success.html" method="POST" class="signin-form">
+        <h1>Welcome Back</h1>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="submit-btn">Sign In</button>
+
+        <div class="forgot-password">
+          <a href="forgot-password.html">Forgot your password?</a>
+        </div>
+
+        <div class="signup-link">
+          Don't have an account? <a href="signup.html">Sign up now</a>
+        </div>
+      </form>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </footer>
+  </body>
+</html>

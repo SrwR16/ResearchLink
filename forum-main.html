@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResearchLink Forum</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+      }
+      .header {
+        background-color: #fdfdff;
+        color: white;
+        padding: 15px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .header-left,
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      .header-item {
+        color: #519ef5;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+      }
+      .header-item:hover {
+        color: #2d75d3;
+        text-shadow: #2d75d3;
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: #4a90e2;
+        text-decoration: none;
+      }
+      .main-content {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 30px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      }
+      .back-button {
+        color: #4a90e2;
+        margin-bottom: 20px;
+        cursor: pointer;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        transition: color 0.3s ease;
+        text-decoration: none;
+      }
+      .back-button:hover {
+        color: #1a1a2e;
+      }
+      .forum-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+      .start-asking-btn {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        flex-shrink: 0;
+        margin-right: 20px;
+        text-decoration: none;
+      }
+      .start-asking-btn:hover {
+        background-color: #3a7bc8;
+      }
+      .search-bar {
+        flex-grow: 1;
+        max-width: 600px;
+        position: relative;
+        left: -250px;
+      }
+      .search-bar input {
+        width: 100%;
+        padding: 12px 45px 12px 25px;
+        border-radius: 25px;
+        border: 2px solid #e0e0e0;
+        font-size: 15px;
+        transition: border-color 0.3s ease;
+      }
+      .search-bar input:focus {
+        outline: none;
+        border-color: #4a90e2;
+      }
+      .search-bar::before {
+        content: "🔍";
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+      }
+      .content-wrapper {
+        display: flex;
+        gap: 30px;
+      }
+      .filter-section {
+        width: 220px;
+        background-color: #f8f9fa;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+      .filter-section h3 {
+        margin-top: 0;
+        color: #1a1a2e;
+        font-weight: 600;
+      }
+      .filter-option {
+        margin-bottom: 15px;
+      }
+      .filter-option label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 5px 0;
+      }
+      .filter-option input[type="radio"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+      }
+      .posts {
+        flex-grow: 1;
+      }
+      .post {
+        background-color: white;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        border: 1px solid #e0e0e0;
+        transition: box-shadow 0.3s ease;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      }
+      .post:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .post h2 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #4a90e2;
+        font-weight: 600;
+      }
+      .post-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .post-header img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        object-fit: cover;
+      }
+      .post-meta {
+        font-size: 0.9em;
+        color: #666;
+      }
+      .comment-count {
+        color: #666;
+        font-size: 0.9em;
+        margin-top: 15px;
+      }
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        gap: 10px;
+      }
+      .pagination button {
+        padding: 8px 15px;
+        background-color: #f0f8ff;
+        color: #4a90e2;
+        border: 1px solid #4a90e2;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .pagination button:hover:not(:disabled) {
+        background-color: #4a90e2;
+        color: white;
+      }
+      .pagination button:disabled {
+        background-color: #e0e0e0;
+        border-color: #e0e0e0;
+        color: #999;
+        cursor: not-allowed;
+      }
+      .pagination .active {
+        background-color: #4a90e2;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <a href="index.html" class="logo">ResearchLink</a>
+        <a href="jobs.html" class="header-item">📋 Jobs</a>
+        <a href="community.html" class="header-item">👥 Community</a>
+        <a href="question.html" class="header-item">❓ Question</a>
+      </div>
+      <div class="header-right">
+        <div class="header-item">🔔</div>
+        <div class="header-item">📁</div>
+        <div class="header-item">👤</div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <a href="index.html" class="back-button">← Go Home</a>
+      <div class="forum-header">
+        <a href="forum-ask.html" class="start-asking-btn">Start Asking</a>
+        <div class="search-bar">
+          <input type="text" placeholder="Search" />
+        </div>
+      </div>
+      <div class="content-wrapper">
+        <div class="filter-section">
+          <h3>Filter</h3>
+          <div class="filter-option">
+            <label>
+              <input type="radio" name="filter" checked />
+              All
+            </label>
+          </div>
+          <div class="filter-option">
+            <label>
+              <input type="radio" name="filter" />
+              My Question
+            </label>
+          </div>
+          <div class="filter-option">
+            <label>
+              <input type="radio" name="filter" />
+              My Answer
+            </label>
+          </div>
+          <div class="filter-option">
+            <label>
+              <input type="radio" name="filter" />
+              Latest
+            </label>
+          </div>
+          <div class="filter-option">
+            <label>
+              <input type="radio" name="filter" />
+              Oldest
+            </label>
+          </div>
+        </div>
+        <div class="posts">
+          <div class="post">
+            <h2>Lorem ipsum dolor sit amet?</h2>
+            <div class="post-header">
+              <img src="" alt="Asif" />
+              <div>
+                <div><strong>Asif</strong></div>
+                <div class="post-meta">Student, UIU • 3 minutes ago</div>
+              </div>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <div class="comment-count">💬 2 comments</div>
+          </div>
+          <div class="post">
+            <h2>r sit amet, consectetur adipiscing ?</h2>
+            <div class="post-header">
+              <img src="" alt="Abir" />
+              <div>
+                <div><strong>Abir</strong></div>
+                <div class="post-meta">Lecturer, UIU • 30 minutes ago</div>
+              </div>
+            </div>
+            <p>
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
+            </p>
+            <div class="comment-count">💬 7 comments</div>
+          </div>
+          <div class="post">
+            <h2>Ut enim ad minim ve?</h2>
+            <div class="post-header">
+              <img src="" alt="Shahriar Ahmed" />
+              <div>
+                <div><strong>Shahriar Ahmed</strong></div>
+                <div class="post-meta">Professor, UIU • 1 hour ago</div>
+              </div>
+            </div>
+            <p>
+              d minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur.
+            </p>
+            <div class="comment-count">💬 24 comments</div>
+          </div>
+        </div>
+      </div>
+      <div class="pagination">
+        <button disabled>Previous</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>Next</button>
+      </div>
+    </main>
+  </body>
+</html>
